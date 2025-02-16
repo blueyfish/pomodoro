@@ -39,6 +39,7 @@ class CountdownTextView(context: Context) : TextView(context) {
             }
             setText(actualText)
         }
+    var maxHour = 96
 
     init {
         layoutParams = LinearLayout.LayoutParams(
@@ -72,7 +73,7 @@ class CountdownTextView(context: Context) : TextView(context) {
 
             @SuppressLint("DefaultLocale")
             override fun onTick(millisUntilFinished: Long) {
-                val hour = (millisUntilFinished / 3600000) % 24
+                val hour = (millisUntilFinished / 3600000) % maxHour
                 val min = (millisUntilFinished / 60000) % 60
                 val sec = (millisUntilFinished / 1000) % 60
 

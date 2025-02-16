@@ -33,17 +33,23 @@ class MainActivity : Activity() {
             }
         }
 
-    private fun createDurationPickerDialog() =
-        TimePickerDialog(this,
-            { _, hour, minute ->
-                if (countDownTextView.timerCounting) countDownTextView.resetCountdown()
+    private fun createDurationPickerDialog() {
+        val callback = { hour: Int, minute: Int, second: Int ->
+            if (countDownTextView.timerCounting) countDownTextView.resetCountdown()
 
-                val duration = hour * 3600000L + minute * 60000L
-                if (duration != 0L) {
-                    countDownTextView.startCountdown(duration)
-                }
-            }, 0, 0, true
-        ).show()
+            val duration = hour * 3600000L + minute * 60000L + second * 1000L
+            if (duration != 0L) {
+                countDownTextView.startCountdown(duration)
+            }
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            DurationPickerDialog(this, callback).show()
+        } else {
+            TimePickerDialog(this, { _, hour, minute -> callback(hour, minute, 0) },
+                0, 0, true).show()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -131,11 +131,4 @@ class MainActivity : Activity() {
             true
         }
     }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-
-        // Set the display mode in order to redraw
-        countDownTextView.displayMode = countDownTextView.displayMode
-    }
 }

@@ -5,6 +5,7 @@ package tipz.pomodoro.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.CountDownTimer
@@ -57,6 +58,13 @@ class CountdownTextView(context: Context) : TextView(context) {
 
         // Ensure default text is shown
         resetCountdown()
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration?) {
+        super.onConfigurationChanged(newConfig)
+
+        // Set the display mode in order to redraw
+        displayMode = displayMode
     }
 
     fun setText(s: String) {

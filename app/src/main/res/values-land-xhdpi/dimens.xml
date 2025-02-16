@@ -3,6 +3,6 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 <resources>
-    <dimen name="timer_mode_textview_size">64sp</dimen>
-    <dimen name="timer_mode_art_size">9sp</dimen>
+    <dimen name="timer_mode_textview_size">84sp</dimen>
+    <dimen name="timer_mode_art_size">14sp</dimen>
 </resources>

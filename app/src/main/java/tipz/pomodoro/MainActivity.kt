@@ -64,8 +64,7 @@ class MainActivity : Activity() {
             val v = this.window.decorView
             v.systemUiVisibility = View.GONE
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            val uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
-                    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+            val uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
                     View.SYSTEM_UI_FLAG_IMMERSIVE
             window.decorView.systemUiVisibility = uiOptions
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {

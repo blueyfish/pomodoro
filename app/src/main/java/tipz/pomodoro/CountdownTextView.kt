@@ -22,6 +22,13 @@ class CountdownTextView(context: Context) : TextView(context) {
             LinearLayout.LayoutParams.MATCH_PARENT
         )
         gravity = Gravity.CENTER
+
+        // Set default font
+        val typeface = Typeface.createFromAsset(context.assets,
+            "fonts/Hack-Regular.ttf")
+        setTypeface(typeface)
+
+        // Set default styles
         maxLines = 1
         setTextSize(TypedValue.COMPLEX_UNIT_SP, 72f)
         resetCountdown()

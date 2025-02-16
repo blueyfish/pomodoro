@@ -1,0 +1,14 @@
+/local.properties
+/.gradle/
+/build/
+/buildSrc/.gradle/
+/buildSrc/build/
+/.idea/
+/app/build/
+/app/.gradle/
+/.idea/caches
+/.idea/libraries
+
+output-metadata.json
+*.apk
+*.dm

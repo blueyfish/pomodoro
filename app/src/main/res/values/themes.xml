@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2025 Tipz Team
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="AppTheme">
+        <!-- Action Bar -->
+        <item name="android:windowActionBar" tools:targetApi="honeycomb">false</item>
+        <item name="android:windowNoTitle">true</item>
+
+        <!-- Background -->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowShowWallpaper" tools:targetApi="eclair">true</item>
+        <item name="android:windowFullscreen">true</item>
+
+        <!-- Background Blur -->
+        <item name="android:windowBlurBehindEnabled" tools:targetApi="s">true</item>
+        <item name="android:windowBlurBehindRadius" tools:targetApi="s">8dp</item>
+
+        <!-- Time Picker dialog
+             Note: This applies only for L+ due to introduction of clock
+        -->
+        <item name="android:timePickerStyle" tools:targetApi="lollipop">@style/DatePickerTheme</item>
+    </style>
+
+    <style name="DatePickerTheme">
+        <item name="android:timePickerMode" tools:targetApi="lollipop">spinner</item>
+    </style>
+</resources>

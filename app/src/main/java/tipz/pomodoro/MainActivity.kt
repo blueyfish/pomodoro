@@ -5,6 +5,7 @@ package tipz.pomodoro
 
 import android.app.Activity
 import android.app.TimePickerDialog
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
@@ -123,5 +124,12 @@ class MainActivity : Activity() {
             createDurationPickerDialog()
             true
         }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+        // Set the display mode in order to redraw
+        countDownTextView.displayMode = countDownTextView.displayMode
     }
 }

@@ -1,10 +1,10 @@
 // Copyright (c) 2025 Tipz Team
 // SPDX-License-Identifier: Apache-2.0
 
-package tipz.pomodoro
+package tipz.pomodoro.textart
 
-object TextArtGenerator {
-    private val zero = """
+class c1Font : TextArtFont {
+    override val zero = """
         | #####  
         |##   ## 
         |##  ### 
@@ -14,7 +14,7 @@ object TextArtGenerator {
         | #####  
     """.trimMargin().split("\n")
 
-    private val one = """
+    override val one = """
         |   ##   
         |  ###   
         |   ##   
@@ -24,7 +24,7 @@ object TextArtGenerator {
         | ###### 
     """.trimMargin().split("\n")
 
-    private val two = """
+    override val two = """
         |  ####  
         | ##  ## 
         |     ## 
@@ -34,7 +34,7 @@ object TextArtGenerator {
         | ###### 
     """.trimMargin().split("\n")
 
-    private val three = """
+    override val three = """
         | ###### 
         |    ##  
         |   ##   
@@ -44,7 +44,7 @@ object TextArtGenerator {
         |  ####  
     """.trimMargin().split("\n")
 
-    private val four = """
+    override val four = """
         |    ##  
         |   ###  
         |  ####  
@@ -54,7 +54,7 @@ object TextArtGenerator {
         |   #### 
     """.trimMargin().split("\n")
 
-    private val five = """
+    override val five = """
         | ###### 
         | ##  ## 
         | ##     
@@ -64,7 +64,7 @@ object TextArtGenerator {
         |  ####  
     """.trimMargin().split("\n")
 
-    private val six = """
+    override val six = """
         |  ####  
         | ##  ## 
         | ##     
@@ -74,7 +74,7 @@ object TextArtGenerator {
         |  ####  
     """.trimMargin().split("\n")
 
-    private val seven = """
+    override val seven = """
         | ###### 
         | ##  ## 
         |    ##  
@@ -84,7 +84,7 @@ object TextArtGenerator {
         |  ##    
     """.trimMargin().split("\n")
 
-    private val eight = """
+    override val eight = """
         |  ####  
         | ##  ## 
         | ##  ## 
@@ -94,7 +94,7 @@ object TextArtGenerator {
         |  ####  
     """.trimMargin().split("\n")
 
-    private val nine = """
+    override val nine = """
         |  ####  
         | ##  ## 
         | ##  ## 
@@ -104,7 +104,7 @@ object TextArtGenerator {
         |  ###   
     """.trimMargin().split("\n")
 
-    private val colon = """
+    override val colon = """
         |        
         |  ##    
         |  ##    
@@ -113,38 +113,4 @@ object TextArtGenerator {
         |  ##    
         |        
     """.trimMargin().split("\n")
-
-    fun fromString(s: String): String {
-        val fontArray = arrayListOf<List<String>>()
-
-        // Create an array of fonts from string
-        for (i in s.indices) {
-            val c: Char = s[i]
-            val font = when (c) {
-                '0' -> zero
-                '1' -> one
-                '2' -> two
-                '3' -> three
-                '4' -> four
-                '5' -> five
-                '6' -> six
-                '7' -> seven
-                '8' -> eight
-                '9' -> nine
-                ':' -> colon
-                else -> null
-            }
-            if (font == null) continue
-            fontArray.add(font)
-        }
-
-        var result = ""
-        for (i in 0..6) {
-            fontArray.forEach {
-                result += it[i]
-            }
-            result += "\n"
-        }
-        return result
-    }
 }

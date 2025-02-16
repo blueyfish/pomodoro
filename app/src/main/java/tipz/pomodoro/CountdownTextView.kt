@@ -12,6 +12,8 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
+import tipz.pomodoro.textart.TextArtGenerator
+import tipz.pomodoro.textart.c1Font
 
 
 class CountdownTextView(context: Context) : TextView(context) {
@@ -59,7 +61,7 @@ class CountdownTextView(context: Context) : TextView(context) {
         actualText = s
         text = when (displayMode) {
             0 -> s
-            1 -> TextArtGenerator.fromString(s)
+            1 -> TextArtGenerator.fromString(c1Font(), s)
             else -> ""
         }
     }

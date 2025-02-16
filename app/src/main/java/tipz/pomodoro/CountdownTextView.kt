@@ -5,6 +5,7 @@ package tipz.pomodoro
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.CountDownTimer
 import android.util.TypedValue
@@ -50,7 +51,11 @@ class CountdownTextView(context: Context) : TextView(context) {
         setTypeface(typeface)
 
         // Set default styles
+        setTextColor(Color.WHITE)
+        setShadowLayer(1.5f, -2f, 2f, Color.GRAY)
         displayMode = 0
+
+        // Ensure default text is shown
         resetCountdown()
     }
 

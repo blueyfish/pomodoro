@@ -1,7 +1,7 @@
 // Copyright (c) 2025 Tipz Team
 // SPDX-License-Identifier: Apache-2.0
 
-package tipz.pomodoro
+package tipz.pomodoro.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -12,6 +12,7 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
+import tipz.pomodoro.R
 import tipz.pomodoro.textart.TextArtGenerator
 import tipz.pomodoro.textart.c1Font
 

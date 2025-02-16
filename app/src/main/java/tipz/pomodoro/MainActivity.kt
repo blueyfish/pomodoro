@@ -12,6 +12,11 @@ import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.LinearLayout
+import tipz.pomodoro.ui.doubleclick.DoubleClick
+import tipz.pomodoro.ui.doubleclick.DoubleClickListener
+import tipz.pomodoro.ui.BackgroundValueAnimator
+import tipz.pomodoro.ui.CountdownTextView
+import tipz.pomodoro.ui.DurationPickerDialog
 
 
 @Suppress("DEPRECATION")

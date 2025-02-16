@@ -1,7 +1,7 @@
 // Copyright (c) 2025 Tipz Team
 // SPDX-License-Identifier: Apache-2.0
 
-package tipz.pomodoro
+package tipz.pomodoro.ui
 
 import android.annotation.TargetApi
 import android.app.AlertDialog

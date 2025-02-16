@@ -5,16 +5,35 @@ package tipz.pomodoro
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Typeface
 import android.os.CountDownTimer
 import android.util.TypedValue
 import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
 
+
 class CountdownTextView(context: Context) : TextView(context) {
     private var countDownTimer: CountDownTimer? = null
     var timerCounting = false
     var onFinishListener = {}
+    var actualText = ""
+    var displayMode = -1
+        set(value) {
+            field = value
+            when (value) {
+                0 -> {
+                    maxLines = 1
+                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 72f)
+                }
+                1 -> {
+                    maxLines = 7
+                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
+                }
+                else -> { }
+            }
+            setText(actualText)
+        }
 
     init {
         layoutParams = LinearLayout.LayoutParams(
@@ -29,9 +48,17 @@ class CountdownTextView(context: Context) : TextView(context) {
         setTypeface(typeface)
 
         // Set default styles
-        maxLines = 1
-        setTextSize(TypedValue.COMPLEX_UNIT_SP, 72f)
+        displayMode = 0
         resetCountdown()
+    }
+
+    fun setText(s: String) {
+        actualText = s
+        text = when (displayMode) {
+            0 -> s
+            1 -> TextArtGenerator.fromString(s)
+            else -> ""
+        }
     }
 
     fun startCountdown(duration: Long) {
@@ -45,7 +72,7 @@ class CountdownTextView(context: Context) : TextView(context) {
                 val sec = (millisUntilFinished / 1000) % 60
 
                 // Used for formatting digits to be in 2 digits only
-                text = String.format("%02d:%02d:%02d", hour, min, sec)
+                setText(String.format("%02d:%02d:%02d", hour, min, sec))
             }
 
             override fun onFinish() {
@@ -60,6 +87,6 @@ class CountdownTextView(context: Context) : TextView(context) {
     fun resetCountdown() {
         timerCounting = false
         if (countDownTimer != null) countDownTimer?.cancel()
-        text = "00:00:00"
+        setText("00:00:00")
     }
 }

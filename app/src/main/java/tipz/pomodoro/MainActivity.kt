@@ -71,6 +71,19 @@ class MainActivity : Activity() {
         countDownTextView = CountdownTextView(this)
         rootView.addView(countDownTextView)
 
+        // Set-up double click mode switching
+        rootView.setOnClickListener(
+            DoubleClick(object : DoubleClickListener {
+                override fun onSingleClickEvent(view: View?) {
+                }
+
+                override fun onDoubleClickEvent(view: View?) {
+                    val mode = countDownTextView.displayMode + 1
+                    countDownTextView.displayMode = if (mode <= 1) mode else 0
+                }
+            })
+        )
+
         // Set-up duration picker dialog
         rootView.setOnLongClickListener {
             createDurationPickerDialog()

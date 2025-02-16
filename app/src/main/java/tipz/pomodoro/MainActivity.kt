@@ -7,7 +7,6 @@ import android.app.Activity
 import android.app.TimePickerDialog
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
@@ -75,10 +74,13 @@ class MainActivity : Activity() {
             val v = this.window.decorView
             v.systemUiVisibility = View.GONE
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            val decorView = window.decorView
-            val uiOptions =
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
-            decorView.systemUiVisibility = uiOptions
+            val uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                    View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                    View.SYSTEM_UI_FLAG_IMMERSIVE
+            window.decorView.systemUiVisibility = uiOptions
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                window.setDecorFitsSystemWindows(false)
+            }
         }
 
         // Apply background effects

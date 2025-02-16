@@ -112,6 +112,7 @@ class MainActivity : Activity() {
                 }
 
                 override fun onDoubleClickEvent(view: View?) {
+                    if (completionFlashing) completionFlashing = false
                     val mode = countDownTextView.displayMode + 1
                     countDownTextView.displayMode = if (mode <= 1) mode else 0
                 }
@@ -120,6 +121,7 @@ class MainActivity : Activity() {
 
         // Set-up duration picker dialog
         rootView.setOnLongClickListener {
+            if (completionFlashing) completionFlashing = false
             createDurationPickerDialog()
             true
         }

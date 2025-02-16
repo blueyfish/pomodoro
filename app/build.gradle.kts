@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "tipz.pomodoro"
-        minSdk = 1
+        minSdk = 9
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"

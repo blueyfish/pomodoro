@@ -60,12 +60,11 @@ class MainActivity : Activity() {
             // Apply blur to window using Android flags
             // This is used for API < 14, as it was deprecated for API 14-31.
             window.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND)
-        } else if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.R) {
-            // Dim window using Android flags
-            // This is needed for API 14-31, as no blurring solution is viable.
-            window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-            window.setDimAmount(0.32f)
         }
+
+        // Dim window using Android flags
+        window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+        window.attributes.dimAmount = 0.32f
 
         // Create countdown clock
         countDownTextView = CountdownTextView(this)

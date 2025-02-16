@@ -24,7 +24,7 @@ class MainActivity : Activity() {
         set(value) {
             field = value
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-                if (value) backgroundValueAnimator.start() else backgroundValueAnimator.cancel()
+                if (value) backgroundValueAnimator.start() else backgroundValueAnimator.stop()
             } else {
                 rootView.setBackgroundColor(
                     if (value) BackgroundValueAnimator.flashCyanColor

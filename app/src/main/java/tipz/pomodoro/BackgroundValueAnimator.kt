@@ -6,15 +6,20 @@ import android.annotation.SuppressLint
 import android.view.View
 
 @SuppressLint("NewApi")
-class BackgroundValueAnimator(v: View) : ValueAnimator() {
+class BackgroundValueAnimator(private val v: View) : ValueAnimator() {
     init {
         setIntValues(flashClearColor, flashCyanColor)
         setEvaluator(ArgbEvaluator())
         addUpdateListener {
             v.setBackgroundColor(animatedValue as Int)
         }
-        duration = 800
+        duration = 1000
         repeatCount = INFINITE
+    }
+
+    fun stop() {
+        cancel()
+        v.setBackgroundColor(flashClearColor)
     }
 
     companion object {

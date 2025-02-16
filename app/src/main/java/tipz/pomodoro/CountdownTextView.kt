@@ -7,6 +7,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.CountDownTimer
 import android.util.TypedValue
+import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.TextView
 
@@ -17,9 +18,10 @@ class CountdownTextView(context: Context) : TextView(context) {
 
     init {
         layoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.WRAP_CONTENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.MATCH_PARENT
         )
+        gravity = Gravity.CENTER
         maxLines = 1
         setTextSize(TypedValue.COMPLEX_UNIT_SP, 72f)
         resetCountdown()

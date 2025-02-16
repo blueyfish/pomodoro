@@ -45,12 +45,8 @@ class CountdownTextView(context: Context) : TextView(context) {
         )
         gravity = Gravity.CENTER
 
-        // Set default font
-        val typeface = Typeface.createFromAsset(context.assets,
-            "fonts/Hack-Regular.ttf")
-        setTypeface(typeface)
-
         // Set default styles
+        typeface = Typeface.MONOSPACE
         setTextColor(Color.WHITE)
         setShadowLayer(1.5f, -2f, 2f, Color.GRAY)
         displayMode = 0

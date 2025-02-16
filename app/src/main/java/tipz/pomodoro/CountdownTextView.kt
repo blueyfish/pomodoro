@@ -24,11 +24,13 @@ class CountdownTextView(context: Context) : TextView(context) {
             when (value) {
                 0 -> {
                     maxLines = 1
-                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 72f)
+                    setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                        resources.getDimension(R.dimen.timer_mode_textview_size))
                 }
                 1 -> {
                     maxLines = 7
-                    setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f)
+                    setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                        resources.getDimension(R.dimen.timer_mode_art_size))
                 }
                 else -> { }
             }

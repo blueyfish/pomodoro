@@ -7,14 +7,42 @@ import android.app.Activity
 import android.app.TimePickerDialog
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.LinearLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import java.lang.Thread.sleep
 
 @Suppress("DEPRECATION")
 class MainActivity : Activity() {
+    private val flashClearColor = 0
+    private val flashCyanColor = 0x7F00FFFF
+
+    private lateinit var rootView: LinearLayout
     private lateinit var countDownTextView: CountdownTextView
+
+    private var jobFlashing: Job? = null
+    private var completionFlashing = false
+        set(value) {
+            field = value
+            if (value) {
+                jobFlashing = CoroutineScope(Dispatchers.IO).launch {
+                    while (true) {
+                        if (!completionFlashing) continue
+                        runOnUiThread { rootView.setBackgroundColor(flashCyanColor) }
+                        sleep(800)
+                        runOnUiThread { rootView.setBackgroundColor(flashClearColor) }
+                        sleep(800)
+                    }
+                }
+            }
+            if (!value && jobFlashing != null) jobFlashing?.cancel()
+        }
 
     private fun createDurationPickerDialog() =
         TimePickerDialog(this,
@@ -32,7 +60,7 @@ class MainActivity : Activity() {
         super.onCreate(savedInstanceState)
 
         // Create root view
-        val rootView = LinearLayout(this).apply {
+        rootView = LinearLayout(this).apply {
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
@@ -67,13 +95,18 @@ class MainActivity : Activity() {
         window.attributes.dimAmount = 0.32f
 
         // Create countdown clock
-        countDownTextView = CountdownTextView(this)
+        countDownTextView = CountdownTextView(this).apply {
+            onFinishListener = {
+                completionFlashing = true
+            }
+        }
         rootView.addView(countDownTextView)
 
         // Set-up double click mode switching
         rootView.setOnClickListener(
             DoubleClick(object : DoubleClickListener {
                 override fun onSingleClickEvent(view: View?) {
+                    if (completionFlashing) completionFlashing = false
                 }
 
                 override fun onDoubleClickEvent(view: View?) {

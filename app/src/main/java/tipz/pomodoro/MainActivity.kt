@@ -12,36 +12,25 @@ import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.LinearLayout
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import java.lang.Thread.sleep
+
 
 @Suppress("DEPRECATION")
 class MainActivity : Activity() {
-    private val flashClearColor = 0
-    private val flashCyanColor = 0x7F00FFFF
-
     private lateinit var rootView: LinearLayout
     private lateinit var countDownTextView: CountdownTextView
 
-    private var jobFlashing: Job? = null
+    private lateinit var backgroundValueAnimator: BackgroundValueAnimator
     private var completionFlashing = false
         set(value) {
             field = value
-            if (value) {
-                jobFlashing = CoroutineScope(Dispatchers.IO).launch {
-                    while (true) {
-                        if (!completionFlashing) continue
-                        runOnUiThread { rootView.setBackgroundColor(flashCyanColor) }
-                        sleep(800)
-                        runOnUiThread { rootView.setBackgroundColor(flashClearColor) }
-                        sleep(800)
-                    }
-                }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+                if (value) backgroundValueAnimator.start() else backgroundValueAnimator.cancel()
+            } else {
+                rootView.setBackgroundColor(
+                    if (value) BackgroundValueAnimator.flashCyanColor
+                    else BackgroundValueAnimator.flashClearColor
+                )
             }
-            if (!value && jobFlashing != null) jobFlashing?.cancel()
         }
 
     private fun createDurationPickerDialog() =
@@ -96,6 +85,11 @@ class MainActivity : Activity() {
         // Dim window using Android flags
         window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
         window.attributes.dimAmount = 0.32f
+
+        // Set-up animator
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            backgroundValueAnimator = BackgroundValueAnimator(rootView)
+        }
 
         // Create countdown clock
         countDownTextView = CountdownTextView(this).apply {

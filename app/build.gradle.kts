@@ -33,6 +33,3 @@ android {
         jvmTarget = "11"
     }
 }
-dependencies {
-    implementation(libs.kotlinx.coroutines)
-}

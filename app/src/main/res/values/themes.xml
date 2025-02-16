@@ -17,14 +17,5 @@
         <!-- Background Blur -->
         <item name="android:windowBlurBehindEnabled" tools:targetApi="s">true</item>
         <item name="android:windowBlurBehindRadius" tools:targetApi="s">48dp</item>
-
-        <!-- Time Picker dialog
-             Note: This applies only for L+ due to introduction of clock
-        -->
-        <item name="android:timePickerStyle" tools:targetApi="lollipop">@style/DatePickerTheme</item>
-    </style>
-
-    <style name="DatePickerTheme">
-        <item name="android:timePickerMode" tools:targetApi="lollipop">spinner</item>
     </style>
 </resources>

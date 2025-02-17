@@ -13,6 +13,7 @@
         <item name="android:windowShowWallpaper" tools:targetApi="eclair">true</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:fitsSystemWindows">false</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">true</item>
 
         <!-- Background Blur -->
         <item name="android:windowBlurBehindEnabled" tools:targetApi="s">true</item>

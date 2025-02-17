@@ -3,7 +3,7 @@
 This is a very simple and tiny pomodoro timer app for Android 2.3 and later, with support for WearOS devices too!
 
 Features:
-- Countdown timer (up to 96 hours)
+- Countdown & countup timer (up to 96 hours)
 - Cyan flashing reminder when each pomodori completed
 - Normal texts or text arts display
 

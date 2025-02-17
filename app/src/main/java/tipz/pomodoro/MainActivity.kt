@@ -5,7 +5,6 @@ package tipz.pomodoro
 
 import android.app.Activity
 import android.app.TimePickerDialog
-import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.view.Gravity
@@ -15,14 +14,14 @@ import android.widget.LinearLayout
 import tipz.pomodoro.ui.doubleclick.DoubleClick
 import tipz.pomodoro.ui.doubleclick.DoubleClickListener
 import tipz.pomodoro.ui.BackgroundValueAnimator
-import tipz.pomodoro.ui.CountdownTextView
+import tipz.pomodoro.ui.TimeCountingTextView
 import tipz.pomodoro.ui.DurationPickerDialog
 
 
 @Suppress("DEPRECATION")
 class MainActivity : Activity() {
     private lateinit var rootView: LinearLayout
-    private lateinit var countDownTextView: CountdownTextView
+    private lateinit var timeCountingTextView: TimeCountingTextView
 
     private lateinit var backgroundValueAnimator: BackgroundValueAnimator
     private var completionFlashing = false
@@ -39,19 +38,19 @@ class MainActivity : Activity() {
         }
 
     private fun createDurationPickerDialog() {
-        val callback = { hour: Int, minute: Int, second: Int ->
-            if (countDownTextView.timerCounting) countDownTextView.resetCountdown()
+        val callback = { hour: Int, minute: Int, second: Int, isCountUp: Boolean ->
+            if (timeCountingTextView.timerCounting) timeCountingTextView.resetCount()
 
             val duration = hour * 3600000L + minute * 60000L + second * 1000L
             if (duration != 0L) {
-                countDownTextView.startCountdown(duration)
+                timeCountingTextView.startCount(duration, isCountUp)
             }
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             DurationPickerDialog(this, callback).show()
         } else {
-            TimePickerDialog(this, { _, hour, minute -> callback(hour, minute, 0) },
+            TimePickerDialog(this, { _, hour, minute -> callback(hour, minute, 0, false) },
                 0, 0, true).show()
         }
     }
@@ -102,12 +101,12 @@ class MainActivity : Activity() {
         }
 
         // Create countdown clock
-        countDownTextView = CountdownTextView(this).apply {
+        timeCountingTextView = TimeCountingTextView(this).apply {
             onFinishListener = {
                 completionFlashing = true
             }
         }
-        rootView.addView(countDownTextView)
+        rootView.addView(timeCountingTextView)
 
         // Set-up double click mode switching
         rootView.setOnClickListener(
@@ -118,8 +117,8 @@ class MainActivity : Activity() {
 
                 override fun onDoubleClickEvent(view: View?) {
                     if (completionFlashing) completionFlashing = false
-                    val mode = countDownTextView.displayMode + 1
-                    countDownTextView.displayMode = if (mode <= 1) mode else 0
+                    val mode = timeCountingTextView.displayMode + 1
+                    timeCountingTextView.displayMode = if (mode <= 1) mode else 0
                 }
             })
         )

@@ -18,7 +18,7 @@ import tipz.pomodoro.textart.TextArtGenerator
 import tipz.pomodoro.textart.c1Font
 
 
-class CountdownTextView(context: Context) : TextView(context) {
+class TimeCountingTextView(context: Context) : TextView(context) {
     private var countDownTimer: CountDownTimer? = null
     var timerCounting = false
     var onFinishListener = {}
@@ -41,7 +41,6 @@ class CountdownTextView(context: Context) : TextView(context) {
             }
             setText(actualText)
         }
-    var maxHour = 96
 
     init {
         layoutParams = LinearLayout.LayoutParams(
@@ -57,7 +56,7 @@ class CountdownTextView(context: Context) : TextView(context) {
         displayMode = 0
 
         // Ensure default text is shown
-        resetCountdown()
+        resetCount()
     }
 
     override fun onConfigurationChanged(newConfig: Configuration?) {
@@ -76,30 +75,23 @@ class CountdownTextView(context: Context) : TextView(context) {
         }
     }
 
-    fun startCountdown(duration: Long) {
+    fun startCount(duration: Long, isCountUp: Boolean) {
         timerCounting = true
-        countDownTimer = object : CountDownTimer(duration, 1000) {
-
-            @SuppressLint("DefaultLocale")
-            override fun onTick(millisUntilFinished: Long) {
-                val hour = (millisUntilFinished / 3600000) % maxHour
-                val min = (millisUntilFinished / 60000) % 60
-                val sec = (millisUntilFinished / 1000) % 60
-
-                // Used for formatting digits to be in 2 digits only
-                setText(String.format("%02d:%02d:%02d", hour, min, sec))
+        countDownTimer = object : TimeCounter(duration, isCountUp) {
+            override fun onTick(formatedString: String) {
+                setText(formatedString)
             }
 
             override fun onFinish() {
                 countDownTimer = null
-                resetCountdown()
+                resetCount()
                 onFinishListener()
             }
         }.start()
     }
 
     @SuppressLint("SetTextI18n")
-    fun resetCountdown() {
+    fun resetCount() {
         timerCounting = false
         if (countDownTimer != null) countDownTimer?.cancel()
         setText("00:00:00")

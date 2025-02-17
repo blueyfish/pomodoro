@@ -94,7 +94,7 @@ class MainActivity : Activity() {
 
         // Dim window using Android flags
         window.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
-        window.attributes.dimAmount = 0.32f
+        window.attributes.dimAmount = 0.48f
 
         // Set-up animator
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {

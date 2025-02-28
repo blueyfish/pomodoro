@@ -105,6 +105,7 @@ class MainActivity : Activity() {
             onFinishListener = {
                 completionFlashing = true
             }
+            keepScreenOn = true
         }
         rootView.addView(timeCountingTextView)
 

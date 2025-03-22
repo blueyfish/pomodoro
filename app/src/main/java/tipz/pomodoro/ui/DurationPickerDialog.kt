@@ -15,7 +15,6 @@ import android.widget.NumberPicker
 import android.widget.ToggleButton
 
 @SuppressLint("SetTextI18n")
-@Suppress("DEPRECATION")
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 class DurationPickerDialog(
     context: Context,
@@ -97,11 +96,11 @@ class DurationPickerDialog(
         })
         rootView.addView(countDirection)
 
-        setButton(context.resources.getString(android.R.string.ok)) { _: DialogInterface, _: Int ->
+        setButton(BUTTON_POSITIVE, context.resources.getString(android.R.string.ok)) { _: DialogInterface, _: Int ->
             callbackCompletion(hour.value, minute.value, second.value, countDirection.isChecked)
         }
 
-        setButton2(context.resources.getString(android.R.string.cancel)) { _: DialogInterface, _: Int ->
+        setButton(BUTTON_NEGATIVE, context.resources.getString(android.R.string.cancel)) { _: DialogInterface, _: Int ->
         }
     }
 }

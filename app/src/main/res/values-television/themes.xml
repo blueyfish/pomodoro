@@ -3,7 +3,7 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="AppTheme" parent="AppTheme.Base" tools:targetApi="honeycomb">
+    <style name="AppTheme" parent="Base" tools:targetApi="honeycomb">
         <item name="android:editTextColor">@android:color/white</item>
     </style>
 </resources>

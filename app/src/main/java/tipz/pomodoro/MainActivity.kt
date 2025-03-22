@@ -16,7 +16,7 @@ import tipz.pomodoro.ui.doubleclick.DoubleClickListener
 import tipz.pomodoro.ui.BackgroundValueAnimator
 import tipz.pomodoro.ui.TimeCountingTextView
 import tipz.pomodoro.ui.DurationPickerDialog
-
+import tipz.pomodoro.ui.showWithCenteredButtons
 
 @Suppress("DEPRECATION")
 class MainActivity : Activity() {
@@ -48,7 +48,7 @@ class MainActivity : Activity() {
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            DurationPickerDialog(this, callback).show()
+            DurationPickerDialog(this, callback).showWithCenteredButtons()
         } else {
             TimePickerDialog(this, { _, hour, minute -> callback(hour, minute, 0, false) },
                 0, 0, true).show()

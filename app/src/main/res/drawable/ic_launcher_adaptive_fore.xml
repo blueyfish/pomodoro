@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (c) 2025 Tipz Team
+     SPDX-License-Identifier: Apache-2.0
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="432"
+    android:viewportHeight="432">
+    <path
+        android:fillColor="#19131313"
+        android:pathData="M0,0 L432,0 L432,216 L0,216 z" />
+    <path
+        android:fillColor="@android:color/black"
+        android:pathData="M 164,276.76042 V 250.52085 L 181.23928,233.26042 198.47857,216 181.23928,198.73958 164,181.47915 V 155.23958 129 h 52 52 v 26.23958 26.23957 L 250.76072,198.73958 233.52143,216 250.76072,233.26042 268,250.52085 V 276.76042 303 h -52 -52 z m 87,-6.02114 V 255.47857 L 233.5,238 216,220.52143 198.5,238 181,255.47857 V 270.73928 286 h 35 35 z"
+        tools:ignore="VectorRaster" />
+</vector>

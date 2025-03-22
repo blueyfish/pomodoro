@@ -31,11 +31,8 @@ class DurationPickerDialog(
     init {
         // Set-up root view
         val rootView = LinearLayout(context).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT
-            )
             gravity = Gravity.CENTER
+            orientation = LinearLayout.VERTICAL
         }
         setView(rootView)
 
@@ -92,9 +89,12 @@ class DurationPickerDialog(
                 }
             }
         }
-        rootView.addView(hour)
-        rootView.addView(minute)
-        rootView.addView(second)
+        rootView.addView(LinearLayout(context).apply {
+            gravity = Gravity.CENTER
+            addView(hour)
+            addView(minute)
+            addView(second)
+        })
         rootView.addView(countDirection)
 
         setButton(context.resources.getString(android.R.string.ok)) { _: DialogInterface, _: Int ->

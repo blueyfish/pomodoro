@@ -2,7 +2,7 @@ package tipz.pomodoro.textart
 
 import tipz.pomodoro.R
 
-class AnsiShawowFont : TextArtFont {
+class AnsiShadowFont : TextArtFont {
     override val zero = """
         | ██████╗ 
         |██╔═████╗
@@ -103,5 +103,5 @@ class AnsiShawowFont : TextArtFont {
     """.trimMargin().split("\n")
 
     override val fontHeight = 6
-    override val fontTextSize = R.dimen.timer_mode_ansi_shawow_size
+    override val fontTextSize = R.dimen.timer_mode_ansi_shadow_size
 }

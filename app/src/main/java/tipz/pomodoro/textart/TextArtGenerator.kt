@@ -6,7 +6,7 @@ package tipz.pomodoro.textart
 object TextArtGenerator {
     val textArtFonts = hashMapOf(
         1 to c1Font(),
-        2 to AnsiShawowFont()
+        2 to AnsiShadowFont()
     )
     val maxTextArtFontsIndex = textArtFonts.size
 

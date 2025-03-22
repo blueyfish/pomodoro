@@ -5,5 +5,5 @@
 <resources>
     <dimen name="timer_mode_default_size">84sp</dimen>
     <dimen name="timer_mode_c1_size">14sp</dimen>
-    <dimen name="timer_mode_ansi_shawow_size">12sp</dimen>
+    <dimen name="timer_mode_ansi_shadow_size">12sp</dimen>
 </resources>

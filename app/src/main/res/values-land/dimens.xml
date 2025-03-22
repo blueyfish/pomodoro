@@ -4,6 +4,6 @@
 -->
 <resources>
     <dimen name="timer_mode_default_size">72sp</dimen>
-    <dimen name="timer_mode_c1_size">12sp</dimen>
-    <dimen name="timer_mode_ansi_shawow_size">10sp</dimen>
+    <dimen name="timer_mode_c1_size">8sp</dimen>
+    <dimen name="timer_mode_ansi_shawow_size">7sp</dimen>
 </resources>

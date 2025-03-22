@@ -15,4 +15,6 @@ interface TextArtFont {
     val eight: List<String>
     val nine: List<String>
     val colon: List<String>
+    val fontHeight: Int
+    val fontTextSize: Int // Dimension resource
 }

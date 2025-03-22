@@ -15,8 +15,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import tipz.pomodoro.R
 import tipz.pomodoro.textart.TextArtGenerator
-import tipz.pomodoro.textart.c1Font
-
 
 class TimeCountingTextView(context: Context) : TextView(context) {
     private var countDownTimer: CountDownTimer? = null
@@ -30,14 +28,16 @@ class TimeCountingTextView(context: Context) : TextView(context) {
                 0 -> {
                     maxLines = 1
                     setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                        resources.getDimension(R.dimen.timer_mode_textview_size))
+                        resources.getDimension(R.dimen.timer_mode_default_size))
                 }
-                1 -> {
-                    maxLines = 7
-                    setTextSize(TypedValue.COMPLEX_UNIT_PX,
-                        resources.getDimension(R.dimen.timer_mode_art_size))
+                else -> {
+                    if (value > TextArtGenerator.maxTextArtFontsIndex) return
+                    TextArtGenerator.textArtFonts[value]?.let {
+                        maxLines = it.fontHeight
+                        setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                            resources.getDimension(it.fontTextSize))
+                    }
                 }
-                else -> { }
             }
             setText(actualText)
         }
@@ -70,8 +70,7 @@ class TimeCountingTextView(context: Context) : TextView(context) {
         actualText = s
         text = when (displayMode) {
             0 -> s
-            1 -> TextArtGenerator.fromString(c1Font(), s)
-            else -> ""
+            else -> TextArtGenerator.fromString(displayMode, s)
         }
     }
 

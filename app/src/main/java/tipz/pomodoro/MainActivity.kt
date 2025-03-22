@@ -11,6 +11,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.LinearLayout
+import tipz.pomodoro.textart.TextArtGenerator
 import tipz.pomodoro.ui.doubleclick.DoubleClick
 import tipz.pomodoro.ui.doubleclick.DoubleClickListener
 import tipz.pomodoro.ui.BackgroundValueAnimator
@@ -119,7 +120,8 @@ class MainActivity : Activity() {
                 override fun onDoubleClickEvent(view: View?) {
                     if (completionFlashing) completionFlashing = false
                     val mode = timeCountingTextView.displayMode + 1
-                    timeCountingTextView.displayMode = if (mode <= 1) mode else 0
+                    timeCountingTextView.displayMode =
+                        if (mode <= TextArtGenerator.maxTextArtFontsIndex) mode else 0
                 }
             })
         )

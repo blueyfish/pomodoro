@@ -3,6 +3,8 @@
 
 package tipz.pomodoro.textart
 
+import tipz.pomodoro.R
+
 class c1Font : TextArtFont {
     override val zero = """
         | #####  
@@ -113,4 +115,7 @@ class c1Font : TextArtFont {
         |  ##    
         |        
     """.trimMargin().split("\n")
+
+    override val fontHeight = 7
+    override val fontTextSize = R.dimen.timer_mode_c1_size
 }

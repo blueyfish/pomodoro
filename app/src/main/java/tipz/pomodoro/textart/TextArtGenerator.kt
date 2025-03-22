@@ -4,6 +4,17 @@
 package tipz.pomodoro.textart
 
 object TextArtGenerator {
+    val textArtFonts = hashMapOf(
+        1 to c1Font(),
+        2 to AnsiShawowFont()
+    )
+    val maxTextArtFontsIndex = textArtFonts.size
+
+    fun fromString(i: Int, s: String) =
+        textArtFonts[i].takeUnless { it == null }?.let {
+            fromString(it, s)
+        } ?: ""
+
     fun fromString(f: TextArtFont, s: String): String {
         val fontArray = arrayListOf<List<String>>()
 
@@ -29,7 +40,7 @@ object TextArtGenerator {
         }
 
         var result = ""
-        for (i in 0..6) {
+        for (i in 0..< f.fontHeight) {
             fontArray.forEach {
                 result += it[i]
             }

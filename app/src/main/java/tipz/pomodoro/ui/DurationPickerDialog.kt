@@ -13,6 +13,7 @@ import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.NumberPicker
 import android.widget.ToggleButton
+import tipz.pomodoro.getFrameworkIdentifier
 
 @SuppressLint("SetTextI18n")
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -96,7 +97,7 @@ class DurationPickerDialog(
         })
         rootView.addView(countDirection)
 
-        setButton(BUTTON_POSITIVE, context.resources.getString(android.R.string.ok)) { _: DialogInterface, _: Int ->
+        setButton(BUTTON_POSITIVE, context.resources.getString(context.getFrameworkIdentifier("date_time_set"))) { _: DialogInterface, _: Int ->
             callbackCompletion(hour.value, minute.value, second.value, countDirection.isChecked)
         }
 

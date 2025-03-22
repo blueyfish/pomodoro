@@ -8,7 +8,9 @@ import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.Typeface
+import android.os.Build
 import android.os.CountDownTimer
+import android.text.SpannableString
 import android.util.TypedValue
 import android.view.Gravity
 import android.widget.LinearLayout
@@ -68,10 +70,16 @@ class TimeCountingTextView(context: Context) : TextView(context) {
 
     fun setText(s: String) {
         actualText = s
-        text = when (displayMode) {
+        val text = when (displayMode) {
             0 -> s
-            else -> TextArtGenerator.fromString(displayMode, s)
+            else -> TextArtGenerator.fromString(displayMode, s).let {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) it
+                else SpannableString(it).apply {
+                    setSpan(MonospaceSpan(), 0, length, 0)
+                }
+            }
         }
+        super.setText(text)
     }
 
     fun startCount(duration: Long, isCountUp: Boolean) {

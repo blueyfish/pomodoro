@@ -3,20 +3,20 @@
      SPDX-License-Identifier: Apache-2.0
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <style name="AppTheme">
+    <style name="AppTheme" tools:targetApi="s">
         <!-- Action Bar -->
-        <item name="android:windowActionBar" tools:targetApi="honeycomb">false</item>
+        <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
 
         <!-- Background -->
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:windowShowWallpaper" tools:targetApi="eclair">true</item>
+        <item name="android:windowShowWallpaper">true</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:fitsSystemWindows">false</item>
-        <item name="android:forceDarkAllowed" tools:targetApi="q">true</item>
+        <item name="android:forceDarkAllowed">true</item>
 
         <!-- Background Blur -->
-        <item name="android:windowBlurBehindEnabled" tools:targetApi="s">true</item>
-        <item name="android:windowBlurBehindRadius" tools:targetApi="s">48dp</item>
+        <item name="android:windowBlurBehindEnabled">true</item>
+        <item name="android:windowBlurBehindRadius">48dp</item>
     </style>
 </resources>

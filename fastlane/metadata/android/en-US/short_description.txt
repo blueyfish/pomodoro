@@ -1,0 +1,1 @@
+a very simple and tiny pomodoro timer app for Android 2.3 and later

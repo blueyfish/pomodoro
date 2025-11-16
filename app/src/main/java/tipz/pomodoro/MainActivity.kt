@@ -45,8 +45,6 @@ class MainActivity : Activity(),
 
     private fun createDurationPickerDialog() {
         val callback = { hour: Int, minute: Int, second: Int, isCountUp: Boolean ->
-            if (timeCountingTextView.timerCounting) timeCountingTextView.resetCount()
-
             val duration = hour * 3600000L + minute * 60000L + second * 1000L
             if (duration != 0L) {
                 timeCountingTextView.startCount(duration, isCountUp)

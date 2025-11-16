@@ -11,8 +11,8 @@ android {
         applicationId = "tipz.pomodoro"
         minSdk = 9
         targetSdk = 36
-        versionCode = 7
-        versionName = "1.3"
+        versionCode = 10
+        versionName = "2.0"
     }
 
     buildTypes {

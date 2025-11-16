@@ -8,7 +8,7 @@ This is a very simple and tiny pomodoro timer application supporting Android 2.3
 - Normal texts or text arts display
 
 ## Controls
-- **Single tap**: Dismiss reminder
+- **Single tap**: Pause & resume active timer, Dismiss flashing reminder
 - **Double tap**: Stop active timer
 - **Long tap**: Set a new timer
 - **Swiping**: Switch between text art fonts

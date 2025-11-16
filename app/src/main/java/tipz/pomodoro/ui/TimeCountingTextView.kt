@@ -19,8 +19,9 @@ import tipz.pomodoro.R
 import tipz.pomodoro.textart.TextArtGenerator
 
 class TimeCountingTextView(context: Context) : TextView(context) {
-    private var countDownTimer: CountDownTimer? = null
+    var countDownTimer: CountDownTimer? = null
     var onFinishListener = {}
+    var isCountUp = false
     var actualText = ""
     var displayMode = -1
         set(value) {
@@ -81,9 +82,10 @@ class TimeCountingTextView(context: Context) : TextView(context) {
         super.setText(text)
     }
 
-    fun startCount(duration: Long, isCountUp: Boolean) {
+    fun startCount(duration: Long, isCountUp: Boolean, storedDuration: Long = 0L) {
+        this.isCountUp = isCountUp
         countDownTimer?.cancel()
-        countDownTimer = object : TimeCounter(duration, isCountUp) {
+        countDownTimer = object : TimeCounter(duration, isCountUp, storedDuration) {
             override fun onTick(formatedString: String) {
                 setText(formatedString)
             }
@@ -94,6 +96,18 @@ class TimeCountingTextView(context: Context) : TextView(context) {
                 onFinishListener()
             }
         }.start()
+    }
+
+    fun pauseAndResumeCount() {
+        if (countDownTimer != null) {
+            countDownTimer!!.cancel()
+            countDownTimer = null
+        } else {
+            if (isCountUp)
+                startCount(TimeCounter.maxMillis, true, TimeCounter.reverseMillisFormat(actualText))
+            else
+                startCount(TimeCounter.reverseMillisFormat(actualText), false)
+        }
     }
 
     @SuppressLint("SetTextI18n")

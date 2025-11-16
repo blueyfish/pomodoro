@@ -40,6 +40,15 @@ class MainActivity : Activity(),
                 )
             }
         }
+    private var pausedConstantColor = false
+        set(value) {
+            field = value
+            if (completionFlashing) return
+            rootView.setBackgroundColor(
+                if (value) BackgroundValueAnimator.flashYellowColor
+                else BackgroundValueAnimator.flashClearColor
+            )
+        }
 
     private lateinit var detector: GestureDetector
 
@@ -127,7 +136,12 @@ class MainActivity : Activity(),
     }
 
     override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-        if (completionFlashing) completionFlashing = false
+        if (completionFlashing) {
+            completionFlashing = false
+        } else {
+            timeCountingTextView.pauseAndResumeCount()
+            pausedConstantColor = timeCountingTextView.countDownTimer == null
+        }
         return true
     }
 

@@ -28,5 +28,6 @@ class BackgroundValueAnimator(private val v: View) : ValueAnimator() {
     companion object {
         const val flashClearColor = 0
         const val flashCyanColor = 0x7F00FFFF
+        const val flashYellowColor = 0x7FFFFF00
     }
 }

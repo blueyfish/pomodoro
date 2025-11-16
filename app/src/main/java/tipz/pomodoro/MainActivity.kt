@@ -5,7 +5,6 @@ package tipz.pomodoro
 
 import android.app.Activity
 import android.app.TimePickerDialog
-import android.gesture.Gesture
 import android.os.Build
 import android.os.Bundle
 import android.view.GestureDetector
@@ -16,9 +15,10 @@ import android.view.WindowManager
 import android.widget.LinearLayout
 import tipz.pomodoro.textart.TextArtGenerator
 import tipz.pomodoro.ui.BackgroundValueAnimator
-import tipz.pomodoro.ui.TimeCountingTextView
 import tipz.pomodoro.ui.DurationPickerDialog
+import tipz.pomodoro.ui.TimeCountingTextView
 import tipz.pomodoro.ui.showWithCenteredButtons
+import kotlin.math.abs
 
 @Suppress("DEPRECATION")
 class MainActivity : Activity(),
@@ -133,34 +133,50 @@ class MainActivity : Activity(),
         return true
     }
 
-    override fun onDoubleTap(e: MotionEvent): Boolean {
-        if (completionFlashing) completionFlashing = false
-        val mode = timeCountingTextView.displayMode + 1
-        timeCountingTextView.displayMode =
-            if (mode <= TextArtGenerator.maxTextArtFontsIndex) mode else 0
-        return true
-    }
-
     override fun onLongPress(event: MotionEvent) {
         if (completionFlashing) completionFlashing = false
         createDurationPickerDialog() // Set-up duration picker dialog
     }
 
+    private val swipeThreshold = 100
+    private val swipeVelocityThreshold = 100
+    override fun onFling(
+        e1: MotionEvent?, e2: MotionEvent,
+        velocityX: Float, velocityY: Float
+    ): Boolean {
+        var result = false
+        try {
+            val diffX = e2.x - e1!!.x
+            if (abs(diffX.toDouble()) > swipeThreshold
+                && abs(velocityX) > swipeVelocityThreshold) {
+                var mode = timeCountingTextView.displayMode
+                if (diffX > 0) mode--
+                else mode++
+
+                timeCountingTextView.displayMode =
+                    when {
+                        mode > TextArtGenerator.maxTextArtFontsIndex -> 0
+                        mode < 0 -> TextArtGenerator.maxTextArtFontsIndex
+                        else -> mode
+                    }
+                result = true
+            }
+        } catch (exception: Exception) {
+            exception.printStackTrace()
+        }
+        return result
+    }
+
     /* Unused implementations */
+    override fun onDoubleTap(e: MotionEvent): Boolean {
+        return true
+    }
+
     override fun onDoubleTapEvent(e: MotionEvent): Boolean {
         return true
     }
 
     override fun onDown(e: MotionEvent): Boolean {
-        return true
-    }
-
-    override fun onFling(
-        e1: MotionEvent?,
-        e2: MotionEvent,
-        velocityX: Float,
-        velocityY: Float
-    ): Boolean {
         return true
     }
 

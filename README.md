@@ -9,8 +9,8 @@ This is a very simple and tiny pomodoro timer application supporting Android 2.3
 
 ## Controls
 - **Single tap**: Dismiss reminder
-- **Double tap**: Switch between texts or text arts display
 - **Long tap**: Set a new timer
+- **Swiping**: Switch between text art fonts
 
 ## Screenshots
 <img src="assets/phone2.png" alt="Counting time (phone)" height="300">

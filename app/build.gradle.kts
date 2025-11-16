@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "tipz.pomodoro"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "tipz.pomodoro"
         minSdk = 9
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 7
         versionName = "1.3"
     }

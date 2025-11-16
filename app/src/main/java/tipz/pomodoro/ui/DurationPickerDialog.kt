@@ -19,7 +19,8 @@ import tipz.pomodoro.getFrameworkIdentifier
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 class DurationPickerDialog(
     context: Context,
-    callbackCompletion: (hour: Int, minute: Int, second: Int, isCountUp: Boolean) -> Unit
+    callbackCompletion: (hour: Int, minute: Int, second: Int,
+                         isCountUp: Boolean, alarm: Boolean) -> Unit
 ) : AlertDialog(context) {
     private val maxHour = 96
 
@@ -27,6 +28,7 @@ class DurationPickerDialog(
     private val minute = NumberPicker(context)
     private val second = NumberPicker(context)
     private val countDirection = ToggleButton(context)
+    private val alarmEnabled = ToggleButton(context)
 
     init {
         // Set-up root view
@@ -79,6 +81,7 @@ class DurationPickerDialog(
                     hour.isEnabled = false
                     minute.isEnabled = false
                     second.isEnabled = false
+                    alarmEnabled.isEnabled = false
                 } else {
                     hour.value = hour.minValue
                     minute.value = minute.minValue
@@ -86,8 +89,15 @@ class DurationPickerDialog(
                     hour.isEnabled = true
                     minute.isEnabled = true
                     second.isEnabled = true
+                    alarmEnabled.isEnabled = true
                 }
             }
+        }
+        alarmEnabled.apply {
+            // These strings are set intentionally and require no translation
+            textOff = "ALARM: OFF"
+            textOn = "ALARM: ON"
+            text = "ALARM: OFF"
         }
         rootView.addView(LinearLayout(context).apply {
             gravity = Gravity.CENTER
@@ -96,11 +106,13 @@ class DurationPickerDialog(
             addView(second)
         })
         rootView.addView(countDirection)
+        rootView.addView(alarmEnabled)
 
         setButton(BUTTON_POSITIVE, context.resources.getString(
             context.getFrameworkIdentifier("date_time_set"))
         ) { _: DialogInterface, _: Int ->
-            callbackCompletion(hour.value, minute.value, second.value, countDirection.isChecked)
+            callbackCompletion(hour.value, minute.value, second.value,
+                countDirection.isChecked, alarmEnabled.isEnabled && alarmEnabled.isChecked)
         }
 
         setButton(BUTTON_NEGATIVE, context.resources.getString(

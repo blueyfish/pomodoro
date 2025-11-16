@@ -5,6 +5,8 @@ package tipz.pomodoro
 
 import android.app.Activity
 import android.app.TimePickerDialog
+import android.media.Ringtone
+import android.media.RingtoneManager
 import android.os.Build
 import android.os.Bundle
 import android.view.GestureDetector
@@ -19,6 +21,7 @@ import tipz.pomodoro.ui.DurationPickerDialog
 import tipz.pomodoro.ui.TimeCountingTextView
 import tipz.pomodoro.ui.showWithCenteredButtons
 import kotlin.math.abs
+
 
 @Suppress("DEPRECATION")
 class MainActivity : Activity(),
@@ -49,6 +52,9 @@ class MainActivity : Activity(),
                 else BackgroundValueAnimator.flashClearColor
             )
         }
+
+    private var playAlarm = false
+    private lateinit var ringtone: Ringtone
 
     private lateinit var detector: GestureDetector
 
@@ -97,10 +103,15 @@ class MainActivity : Activity(),
             backgroundValueAnimator = BackgroundValueAnimator(rootView)
         }
 
+        // Prepare alarm sound
+        val notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM)
+        ringtone = RingtoneManager.getRingtone(this, notification)
+
         // Create countdown clock
         timeCountingTextView = TimeCountingTextView(this).apply {
             onFinishListener = {
                 completionFlashing = true
+                if (playAlarm) ringtone.play()
             }
             keepScreenOn = true
         }
@@ -113,6 +124,7 @@ class MainActivity : Activity(),
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         return if (detector.onTouchEvent(event)) {
+            ringtone.stop()
             true
         } else {
             super.onTouchEvent(event)
@@ -120,7 +132,7 @@ class MainActivity : Activity(),
     }
 
     override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-        if (completionFlashing) {
+        if (completionFlashing || timeCountingTextView.actualText == "00:00:00") {
             completionFlashing = false
         } else {
             timeCountingTextView.pauseAndResumeCount()
@@ -135,17 +147,19 @@ class MainActivity : Activity(),
     }
 
     override fun onLongPress(event: MotionEvent) {
-        val callback = { hour: Int, minute: Int, second: Int, isCountUp: Boolean ->
+        val callback = { hour: Int, minute: Int, second: Int,
+                         isCountUp: Boolean, alarm: Boolean ->
             val duration = hour * 3600000L + minute * 60000L + second * 1000L
             if (duration != 0L) {
                 timeCountingTextView.startCount(duration, isCountUp)
             }
+            playAlarm = alarm
         }
-                        
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             DurationPickerDialog(this, callback).showWithCenteredButtons()
         } else {
-            TimePickerDialog(this, { _, hour, minute -> callback(hour, minute, 0, false) },
+            TimePickerDialog(this, { _, hour, minute -> callback(hour, minute, 0, false, false) },
                 0, 0, true).show()
         }
     }

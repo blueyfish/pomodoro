@@ -4,7 +4,7 @@ This is a very simple and tiny pomodoro timer application supporting Android 2.3
 
 ## Features
 - Countdown & countup timer (up to 96 hours)
-- Cyan flashing reminder when each pomodori completed
+- Cyan flashing and/or alarm sounds reminder when each pomodori completed
 - Normal texts or text arts display
 
 ## Controls

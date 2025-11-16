@@ -133,6 +133,12 @@ class MainActivity : Activity(),
         return true
     }
 
+    override fun onDoubleTap(e: MotionEvent): Boolean {
+        if (completionFlashing) completionFlashing = false
+        timeCountingTextView.resetCount()
+        return true
+    }
+
     override fun onLongPress(event: MotionEvent) {
         if (completionFlashing) completionFlashing = false
         createDurationPickerDialog() // Set-up duration picker dialog
@@ -168,10 +174,6 @@ class MainActivity : Activity(),
     }
 
     /* Unused implementations */
-    override fun onDoubleTap(e: MotionEvent): Boolean {
-        return true
-    }
-
     override fun onDoubleTapEvent(e: MotionEvent): Boolean {
         return true
     }

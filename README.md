@@ -9,6 +9,7 @@ This is a very simple and tiny pomodoro timer application supporting Android 2.3
 
 ## Controls
 - **Single tap**: Dismiss reminder
+- **Double tap**: Stop active timer
 - **Long tap**: Set a new timer
 - **Swiping**: Switch between text art fonts
 

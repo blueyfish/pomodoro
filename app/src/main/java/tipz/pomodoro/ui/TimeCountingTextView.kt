@@ -22,6 +22,7 @@ class TimeCountingTextView(context: Context) : TextView(context) {
     var countDownTimer: CountDownTimer? = null
     var onFinishListener = {}
     var isCountUp = false
+    var isActive = false
     var actualText = ""
 
     var displayMode = -1
@@ -85,6 +86,7 @@ class TimeCountingTextView(context: Context) : TextView(context) {
 
     fun startCount(duration: Long, isCountUp: Boolean, storedDuration: Long = 0L) {
         this.isCountUp = isCountUp
+        isActive = true
         countDownTimer?.cancel()
         countDownTimer = object : TimeCounter(duration, isCountUp, storedDuration) {
             override fun onTick(formatedString: String) {
@@ -95,11 +97,13 @@ class TimeCountingTextView(context: Context) : TextView(context) {
                 countDownTimer = null
                 resetCount()
                 onFinishListener()
+                isActive = false
             }
         }.start()
     }
 
     fun pauseAndResumeCount() {
+        if (!isActive) return
         if (countDownTimer != null) {
             countDownTimer!!.cancel()
             countDownTimer = null

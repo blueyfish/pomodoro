@@ -124,6 +124,7 @@ class MainActivity : Activity(),
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         return if (detector.onTouchEvent(event)) {
+            if (completionFlashing) completionFlashing = false
             ringtone.stop()
             true
         } else {
@@ -132,9 +133,8 @@ class MainActivity : Activity(),
     }
 
     override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
-        if (completionFlashing || timeCountingTextView.actualText == "00:00:00") {
-            completionFlashing = false
-        } else {
+        if (!timeCountingTextView.isActive) return true
+        if (!completionFlashing) {
             timeCountingTextView.pauseAndResumeCount()
             pausedConstantColor = timeCountingTextView.countDownTimer == null
         }

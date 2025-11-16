@@ -23,6 +23,7 @@ class TimeCountingTextView(context: Context) : TextView(context) {
     var onFinishListener = {}
     var isCountUp = false
     var actualText = ""
+
     var displayMode = -1
         set(value) {
             field = value

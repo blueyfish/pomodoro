@@ -97,11 +97,13 @@ class DurationPickerDialog(
         })
         rootView.addView(countDirection)
 
-        setButton(BUTTON_POSITIVE, context.resources.getString(context.getFrameworkIdentifier("date_time_set"))) { _: DialogInterface, _: Int ->
+        setButton(BUTTON_POSITIVE, context.resources.getString(
+            context.getFrameworkIdentifier("date_time_set"))
+        ) { _: DialogInterface, _: Int ->
             callbackCompletion(hour.value, minute.value, second.value, countDirection.isChecked)
         }
 
-        setButton(BUTTON_NEGATIVE, context.resources.getString(android.R.string.cancel)) { _: DialogInterface, _: Int ->
-        }
+        setButton(BUTTON_NEGATIVE, context.resources.getString(
+            android.R.string.cancel)) { _: DialogInterface, _: Int -> /* default */ }
     }
 }

@@ -52,22 +52,6 @@ class MainActivity : Activity(),
 
     private lateinit var detector: GestureDetector
 
-    private fun createDurationPickerDialog() {
-        val callback = { hour: Int, minute: Int, second: Int, isCountUp: Boolean ->
-            val duration = hour * 3600000L + minute * 60000L + second * 1000L
-            if (duration != 0L) {
-                timeCountingTextView.startCount(duration, isCountUp)
-            }
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            DurationPickerDialog(this, callback).showWithCenteredButtons()
-        } else {
-            TimePickerDialog(this, { _, hour, minute -> callback(hour, minute, 0, false) },
-                0, 0, true).show()
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -146,14 +130,24 @@ class MainActivity : Activity(),
     }
 
     override fun onDoubleTap(e: MotionEvent): Boolean {
-        if (completionFlashing) completionFlashing = false
         timeCountingTextView.resetCount()
         return true
     }
 
     override fun onLongPress(event: MotionEvent) {
-        if (completionFlashing) completionFlashing = false
-        createDurationPickerDialog() // Set-up duration picker dialog
+        val callback = { hour: Int, minute: Int, second: Int, isCountUp: Boolean ->
+            val duration = hour * 3600000L + minute * 60000L + second * 1000L
+            if (duration != 0L) {
+                timeCountingTextView.startCount(duration, isCountUp)
+            }
+        }
+                        
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            DurationPickerDialog(this, callback).showWithCenteredButtons()
+        } else {
+            TimePickerDialog(this, { _, hour, minute -> callback(hour, minute, 0, false) },
+                0, 0, true).show()
+        }
     }
 
     private val swipeThreshold = 100

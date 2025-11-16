@@ -5,22 +5,25 @@ package tipz.pomodoro
 
 import android.app.Activity
 import android.app.TimePickerDialog
+import android.gesture.Gesture
 import android.os.Build
 import android.os.Bundle
+import android.view.GestureDetector
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.View
 import android.view.WindowManager
 import android.widget.LinearLayout
 import tipz.pomodoro.textart.TextArtGenerator
-import tipz.pomodoro.ui.doubleclick.DoubleClick
-import tipz.pomodoro.ui.doubleclick.DoubleClickListener
 import tipz.pomodoro.ui.BackgroundValueAnimator
 import tipz.pomodoro.ui.TimeCountingTextView
 import tipz.pomodoro.ui.DurationPickerDialog
 import tipz.pomodoro.ui.showWithCenteredButtons
 
 @Suppress("DEPRECATION")
-class MainActivity : Activity() {
+class MainActivity : Activity(),
+    GestureDetector.OnGestureListener,
+    GestureDetector.OnDoubleTapListener {
     private lateinit var rootView: LinearLayout
     private lateinit var timeCountingTextView: TimeCountingTextView
 
@@ -37,6 +40,8 @@ class MainActivity : Activity() {
                 )
             }
         }
+
+    private lateinit var detector: GestureDetector
 
     private fun createDurationPickerDialog() {
         val callback = { hour: Int, minute: Int, second: Int, isCountUp: Boolean ->
@@ -111,26 +116,66 @@ class MainActivity : Activity() {
         rootView.addView(timeCountingTextView)
 
         // Set-up double click mode switching
-        rootView.setOnClickListener(
-            DoubleClick(object : DoubleClickListener {
-                override fun onSingleClickEvent(view: View?) {
-                    if (completionFlashing) completionFlashing = false
-                }
+        detector = GestureDetector(this, this)
+        detector.setOnDoubleTapListener(this)
+    }
 
-                override fun onDoubleClickEvent(view: View?) {
-                    if (completionFlashing) completionFlashing = false
-                    val mode = timeCountingTextView.displayMode + 1
-                    timeCountingTextView.displayMode =
-                        if (mode <= TextArtGenerator.maxTextArtFontsIndex) mode else 0
-                }
-            })
-        )
-
-        // Set-up duration picker dialog
-        rootView.setOnLongClickListener {
-            if (completionFlashing) completionFlashing = false
-            createDurationPickerDialog()
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        return if (detector.onTouchEvent(event)) {
             true
+        } else {
+            super.onTouchEvent(event)
         }
+    }
+
+    override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+        if (completionFlashing) completionFlashing = false
+        return true
+    }
+
+    override fun onDoubleTap(e: MotionEvent): Boolean {
+        if (completionFlashing) completionFlashing = false
+        val mode = timeCountingTextView.displayMode + 1
+        timeCountingTextView.displayMode =
+            if (mode <= TextArtGenerator.maxTextArtFontsIndex) mode else 0
+        return true
+    }
+
+    override fun onLongPress(event: MotionEvent) {
+        if (completionFlashing) completionFlashing = false
+        createDurationPickerDialog() // Set-up duration picker dialog
+    }
+
+    /* Unused implementations */
+    override fun onDoubleTapEvent(e: MotionEvent): Boolean {
+        return true
+    }
+
+    override fun onDown(e: MotionEvent): Boolean {
+        return true
+    }
+
+    override fun onFling(
+        e1: MotionEvent?,
+        e2: MotionEvent,
+        velocityX: Float,
+        velocityY: Float
+    ): Boolean {
+        return true
+    }
+
+    override fun onScroll(
+        e1: MotionEvent?,
+        e2: MotionEvent,
+        distanceX: Float,
+        distanceY: Float
+    ): Boolean {
+        return true
+    }
+
+    override fun onShowPress(e: MotionEvent) { /* default */ }
+
+    override fun onSingleTapUp(e: MotionEvent): Boolean {
+        return true
     }
 }
